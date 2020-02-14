@@ -16,12 +16,17 @@ for row in ws1.rows:
     all_values.append(row_value)
 
 
-
 @app.route('/')
 def index():
     return render_template(
         'index.html',
-        values = all_values,
+        allValues = all_values,
+    )
+
+@app.route('/check')
+def chech():
+    return render_template(
+        'check.thml',
     )
 
 
