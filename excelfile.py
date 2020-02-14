@@ -1,19 +1,28 @@
-# https://openpyxl.readthedocs.io/en/stable/
+from flask import Flask, render_template
+app = Flask(__name__)
 
 from openpyxl import load_workbook
 
-wb = load_workbook('C:\\Users\\82104\\Desktop\\rentcheck\\exfile\\ex.xlsx', data_only=True)
-ws = wb['Sheet1']
+EXCEL_FIlE = 'C:\\Users\\82104\\Desktop\\rentcheck\\exfile\\ex.xlsx'
+wb = load_workbook(EXCEL_FIlE, data_only=True)
+ws1 = wb.worksheets[0]
 
-print(wb.sheetnames[0])
-print(ws['A1'].value)
-print(ws.rows)
 
 all_values = []
-for row in ws.rows:
+for row in ws1.rows:
     row_value = []
     for cell in row:
         row_value.append(cell.value)
     all_values.append(row_value)
 
-print(all_values)
+
+
+@app.route('/')
+def index():
+    return render_template(
+        'index.html',
+        values = all_values,
+    )
+
+
+app.run(port=5000, debug=True)
