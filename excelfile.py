@@ -15,7 +15,6 @@ all_values = []
 for row in ws1.rows:
     row_value = []
     for cell in row:
-        print(type(cell.value))
         if isinstance(cell.value, str):
             row_value.append(cell.value.strip())
         else:
@@ -30,17 +29,20 @@ def index():
         allValues = all_values,
     )
 
-@app.route('/check', methods = ['POST'])
-def check():
+
+@app.route('/search', methods = ['POST'])
+def search():
     if request.method == 'POST':
         name = request.form['name']
-        name_values = []
+        search_values = []
         for row_values in all_values:
-            if name in row_values:
-                name_values.append(row_values)
+            name_list = [] #이름으로만 검색되게 만들기
+            name_list.append(row_values[2])
+            if name in name_list: #name_list에 있는 name만 추가하기
+                search_values.append(row_values)
         return render_template(
-            'check.html',
-            nameValues = name_values,
+            'search.html',
+            searchValues = search_values,
         )
 
 
