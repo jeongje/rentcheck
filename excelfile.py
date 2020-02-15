@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 from openpyxl import load_workbook
@@ -36,11 +36,15 @@ def index():
         nameValues = name_values
     )
 
-@app.route('/check')
-def chech():
-    return render_template(
-        'check.html',
-    )
+@app.route('/check', methods = ['POST'])
+def check():
+    if request.method == 'POST':
+        result = request.form
+        print(result)
+        return render_template(
+            'check.html',
+            result = result,
+        )
 
 
 app.run(port=5000, debug=True)

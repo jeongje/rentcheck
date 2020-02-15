@@ -5,7 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-<input>
+<form action = "http://127.0.0.1:5000/check" method = "POST">
+    name<input type="text" name="name">
+    <input type="submit">
+</form>
 
 <table border="1">
     {% for rowValues in allValues %}
