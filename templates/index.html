@@ -5,8 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+<input>
+
 <table border="1">
     {% for rowValues in allValues %}
+    <tr>
+        {% for value in rowValues %}
+        <td>{{ value }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<table border="1">
+    {% for rowValues in nameValues %}
     <tr>
         {% for value in rowValues %}
         <td>{{ value }}</td>
