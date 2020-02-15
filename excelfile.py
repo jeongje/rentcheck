@@ -9,9 +9,6 @@ wb = load_workbook(EXCEL_FIlE, data_only=True)
 ws1 = wb.worksheets[0]
 
 
-NAME = '김슬아'
-# print(ws1.rows[0])
-
 all_values = []
 for row in ws1.rows:
     row_value = []
@@ -20,30 +17,24 @@ for row in ws1.rows:
     all_values.append(row_value)
 
 
-name_values = []
-for row_values in all_values:
-    if NAME in row_values:
-        name_values.append(row_values)
-
-# print(name_values)
-
-
 @app.route('/')
 def index():
     return render_template(
         'index.html',
         allValues = all_values,
-        nameValues = name_values
     )
 
 @app.route('/check', methods = ['POST'])
 def check():
     if request.method == 'POST':
-        result = request.form
-        print(result)
+        name = request.form['name']
+        name_values = []
+        for row_values in all_values:
+            if name in row_values:
+                name_values.append(row_values)
         return render_template(
             'check.html',
-            result = result,
+            nameValues = name_values,
         )
 
 
