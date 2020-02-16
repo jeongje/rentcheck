@@ -29,6 +29,25 @@ def index():
         allValues = all_values,
     )
 
+@app.route('/tenant')
+def tenant():
+    return render_template(
+        'tenant.html',
+    )
+
+@app.route('/contract')
+def contract():
+    return render_template(
+        'contract.html',
+    )
+
+@app.route('/monthly')
+def monthly():
+    return render_template(
+        'monthly.html',
+    )
+
+
 
 @app.route('/search', methods = ['POST'])
 def search():
