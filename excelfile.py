@@ -1,5 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
+
+from pymongo import MongoClient
+client = MongoClient('localhost', 27017)
+db = client.dbrentcheck
 
 from openpyxl import load_workbook
 
@@ -34,6 +38,35 @@ def tenant():
     return render_template(
         'tenant.html',
     )
+
+
+@app.route('/tenant/tenants', methods=['POST'])
+def save_tenant():
+    name_receive = request.form['name']
+    phone_receive = request.form['phone']
+    memo_receive = request.form['tenant_memo']
+
+    doc = {
+        'name': name_receive,
+        'phone': phone_receive,
+        'memo': memo_receive,
+    }
+
+    db.tenants.insert_one(doc)
+
+    return jsonify({'result': 'success'})
+
+
+@app.route('/tenant/tenants', methods=['GET'])
+def view_tenants():
+    tenants = list(db.tenants.find({},{'_id':0}))
+    return jsonify({'result': 'success', 'tenants': tenants})
+    # return render_template(
+    #     'tenant.html'
+    # )
+
+
+
 
 @app.route('/contract')
 def contract():

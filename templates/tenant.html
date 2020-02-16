@@ -6,12 +6,23 @@
 </head>
 <body>
 <h1>입주자 입력</h1>
-<form>
+<form action = "http://127.0.0.1:5000/tenant/tenants" method = "POST">
     <p>이름<input type="text" name="name"></p>
     <p>핸드폰<input type="text" name="phone"></p>
     <p>메모<input type="text" name="tenant_memo"></p>
     <input type="submit">
 </form>
+
+<hr>
+
+<h4>목록보기</h4>
+<table border="1">
+    <thead>
+    <td>이름</td>
+    <td>핸드폰</td>
+    <td>메모</td>
+    </thead>
+</table>
 
 </body>
 </html>
